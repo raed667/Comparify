@@ -9,7 +9,7 @@ if (isset($_POST['id']) && $_POST['id'] != "") {
     unset($allFiles[1]);
     unset($allFiles[2]);
 
-    $filesIndexes = array_rand($allFiles, 800);
+    $filesIndexes = array_rand($allFiles, 227);
 
     $testRes = array();
     $testedFiles = array();
@@ -28,17 +28,21 @@ if (isset($_POST['id']) && $_POST['id'] != "") {
             $comparedFile = "./dataset/" . $allFiles[$pic];
             $command = "./domColors " . $file . " " . $comparedFile;
             exec($command, $output);
-            $val = (float) $output[0];
+            $val = $output[0];
             if ($val > $max3) {
                 $file3 = $allFiles[$pic];
-
+                $max3 = $val;
                 if ($val > $max2) {
                     $file3 = $file2;
                     $file2 = $allFiles[$pic];
+                    $max3 = $max2;
+                    $max2 = $val;
 
                     if ($val > $max1) {
                         $file2 = $file1;
                         $file1 = $allFiles[$pic];
+                        $max2 = $max1;
+                        $max1 = $val;
                     }
                 }
             }
@@ -67,6 +71,5 @@ if (isset($_POST['id']) && $_POST['id'] != "") {
       }
       } */
 
-    echo(json_encode(array($file1, $file2, $file3)));
+    echo(json_encode(array($file1, $max1, $file2, $max2, $file3, $max3)));
 }
-?>

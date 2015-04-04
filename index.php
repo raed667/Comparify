@@ -6,6 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <style>
+            body { padding:0px; margin:0px; }
+            #ajax_div { position: relative; float: left; width: 100%; height: 100%; }
+
+        </style>
         <div id="ajax_div"></div>
 
         <div>
@@ -48,10 +53,16 @@
                     function (data, status) {
                         //alert("Data: " + data + "\nStatus: " + status);
                         var obj = jQuery.parseJSON(data);
-                        $("#im1").attr("src", "./dataset/" + obj[0]);
-                        $("#im2").attr("src", "./dataset/" + obj[1]);
-                        $("#im3").attr("src", "./dataset/" + obj[2]);
                         $('#ajax_div').html('');
+
+                        if (obj[0] !== "error") {
+                            $("#im1").attr("src", "./dataset/" + obj[0]);
+                            $("#im2").attr("src", "./dataset/" + obj[2]);
+                            $("#im3").attr("src", "./dataset/" + obj[4]);
+                            //  alert(obj[1]+" "+obj[3]+" "+obj[5]+" ");
+                        } else {
+                            $('#ajax_div').html('Not enough similarity');
+                        }
                     });
                 });
             });
