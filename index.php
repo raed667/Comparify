@@ -11,7 +11,7 @@
             #ajax_div { position: relative; float: left; width: 100%; height: 100%; }
 
         </style>
-        <div id="ajax_div"></div>
+
 
         <div>
 
@@ -28,10 +28,13 @@
             ?>     
 
         </div>
+        <div id="ajax_div"></div>
+        <hr>
         <div>
             <img id="im1" height="255" width="255">
             <img id="im2" height="255" width="255">
             <img id="im3" height="255" width="255">
+            <div id="req"></div>
         </div> 
 
         <script src="js/libs/jquery/jquery.min.js"></script>
@@ -45,6 +48,10 @@
                 });
 
                 $("img").click(function (event) {
+                    $("#im1").removeAttr("src");
+                    $("#im2").removeAttr("src");
+                    $("#im3").removeAttr("src");
+
                     $('#ajax_div').html('<img src="loader.gif" />');
                     $.post("worker.php",
                             {
@@ -55,14 +62,17 @@
                         var obj = jQuery.parseJSON(data);
                         $('#ajax_div').html('');
 
-                        if (obj[0] !== "error") {
+                        if (obj[1] >= 0.4) {
                             $("#im1").attr("src", "./dataset/" + obj[0]);
+                        }
+                        if (obj[3] >= 0.4) {
                             $("#im2").attr("src", "./dataset/" + obj[2]);
+                        }
+                        if (obj[5] >= 0.4) {
                             $("#im3").attr("src", "./dataset/" + obj[4]);
                             //  alert(obj[1]+" "+obj[3]+" "+obj[5]+" ");
-                        } else {
-                            $('#ajax_div').html('Not enough similarity');
                         }
+                        $("#req").html(obj[1] + "-" + obj[3] + "-" + obj[5]);
                     });
                 });
             });
