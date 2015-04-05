@@ -62,13 +62,13 @@
                         var obj = jQuery.parseJSON(data);
                         $('#ajax_div').html('');
 
-                        if (obj[1] >= 0.4) {
+                        if (obj[1] >= 0.6) {
                             $("#im1").attr("src", "./dataset/" + obj[0]);
                         }
-                        if (obj[3] >= 0.4) {
+                        if (obj[3] >= 0.6) {
                             $("#im2").attr("src", "./dataset/" + obj[2]);
                         }
-                        if (obj[5] >= 0.4) {
+                        if (obj[5] >= 0.6) {
                             $("#im3").attr("src", "./dataset/" + obj[4]);
                             //  alert(obj[1]+" "+obj[3]+" "+obj[5]+" ");
                         }
