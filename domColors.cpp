@@ -40,66 +40,63 @@ using namespace cv;
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	/**
-	 * Indicates the power of the relation between the 2 pictures in param.
-	 * It goes from 0 to 1.
-	 */
-	double relation = 0;
+    /**
+     * Indicates the power of the relation between the 2 pictures in param.
+     * It goes from 0 to 1.
+     */
+    double relation = 0;
 
-	if (argc != 3) {
-		printf("argument error\n");
-		return 0;
-	}
+    if (argc != 3) {
+        printf("argument error\n");
+        return 0;
+    }
 
-	Mat img1, img2;
-	Mat hsv_half_down;
+    Mat img1, img2;
 
-	Mat image1 = cv::imread(argv[1], 1);
-	Mat image2 = cv::imread(argv[2], 1);
+    Mat image1 = cv::imread(argv[1], 1);
+    Mat image2 = cv::imread(argv[2], 1);
 
-	cvtColor(image1, img1, COLOR_BGR2HSV);
-	cvtColor(image2, img2, COLOR_BGR2HSV);
+    cvtColor(image1, img1, COLOR_BGR2HSV);
+    cvtColor(image2, img2, COLOR_BGR2HSV);
 
-/// Using 50 bins for hue and 60 for saturation
-	int h_bins = 50;
-	int s_bins = 60;
-	int histSize[] = { h_bins, s_bins };
+    /// Using 50 bins for hue and 60 for saturation
+    int h_bins = 50;
+    int s_bins = 60;
+    int histSize[] = {h_bins, s_bins};
 
-// hue varies from 0 to 179, saturation from 0 to 255
-	float h_ranges[] = { 0, 180 };
-	float s_ranges[] = { 0, 256 };
+    // hue varies from 0 to 179, saturation from 0 to 255
+    float h_ranges[] = {0, 180};
+    float s_ranges[] = {0, 256};
 
-	const float* ranges[] = { h_ranges, s_ranges };
+    const float* ranges[] = {h_ranges, s_ranges};
 
-// Use the o-th and 1-st channels
-	int channels[] = { 0, 1, 2 };
+    // Use the o-th and 1-st channels
+    int channels[] = {0, 1, 2};
 
-	MatND hist_base;
-	MatND hist_img2;
+    MatND hist_base;
+    MatND hist_img2;
 
-/// Calculate the histograms for the HSV images
-	calcHist(&img1, 1, channels, Mat(), hist_base, 2, histSize, ranges, true,
-			false);
-	normalize(hist_base, hist_base, 0, 1, NORM_MINMAX, -1, Mat());
+    /// Calculate the histograms for the HSV images
+    calcHist(&img1, 1, channels, Mat(), hist_base, 2, histSize, ranges, true,
+            false);
+    normalize(hist_base, hist_base, 0, 1, NORM_MINMAX, -1, Mat());
 
-	calcHist(&img2, 1, channels, Mat(), hist_img2, 2, histSize, ranges, true,
-			false);
-	normalize(hist_img2, hist_img2, 0, 1, NORM_MINMAX, -1, Mat());
+    calcHist(&img2, 1, channels, Mat(), hist_img2, 2, histSize, ranges, true,
+            false);
+    normalize(hist_img2, hist_img2, 0, 1, NORM_MINMAX, -1, Mat());
 
-	int compare_method = CV_COMP_CORREL;
-	double base_base = compareHist(hist_base, hist_base, compare_method);
-	double base_img2 = compareHist(hist_base, hist_img2, compare_method);
-	relation = (base_img2 / base_base);
-	/*printf("[CV_COMP_CORREL] Perfect [%f] | Img2 [%f] \n", base_base,
-			base_img2);
+    int compare_method = CV_COMP_CORREL;
+    double base_base = compareHist(hist_base, hist_base, compare_method);
+    double base_img2 = compareHist(hist_base, hist_img2, compare_method);
+    relation = (base_img2 / base_base);
+    /*printf("[CV_COMP_CORREL] Perfect [%f] | Img2 [%f] \n", base_base,
+                    base_img2);
 
-	printf("Done \n");*/
-
-	/**
-	 * This print should be the last execution before exiting.
-	 * Do not change the format unless to follow a change of version.
-	 */
-	printf("%1.2f",base_img2);
-	return 0;
+    /**
+     * This print should be the last execution before exiting.
+     * Do not change the format unless to follow a change of version.
+     */
+    printf("%1.2f", base_img2);
+    return 0;
 }
 
