@@ -89,8 +89,6 @@ int main(int argc, char *argv[]) {
     double base_base = compareHist(hist_base, hist_base, compare_method);
     double base_img2 = compareHist(hist_base, hist_img2, compare_method);
     relation = (base_img2 / base_base);
-    /*printf("[CV_COMP_CORREL] Perfect [%f] | Img2 [%f] \n", base_base,
-                    base_img2);
 
     /**
      * This print should be the last execution before exiting.

@@ -19,12 +19,15 @@
             $allFiles = scandir("./dataset");
             unset($allFiles[0]);
             unset($allFiles[1]);
+            unset($allFiles[2]);
+
             $selectedFiles = array_rand($allFiles, 16);
 
             foreach ($selectedFiles as $value) {
                 ?>
                 <img id="<?php echo $allFiles[$value] ?>" name="<?php echo $allFiles[$value] ?>" height="128" width="128" src="./dataset/<?php echo $allFiles[$value] ?>" />
-            <?php }
+                <?php
+            }
             ?>     
 
         </div>
