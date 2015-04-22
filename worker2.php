@@ -2,7 +2,6 @@
 
 require './Res.php';
 
-//$_POST['id'] = "107702.png";
 
 if (isset($_POST['id']) && $_POST['id'] != "") {
     $file = "./dataset/" . $_POST['id'];
@@ -19,11 +18,11 @@ if (isset($_POST['id']) && $_POST['id'] != "") {
     foreach ($filesIndexes as $pic) {
         if ("./dataset/" . $allFiles[$pic] != $file) {
             $comparedFile = "./dataset/" . $allFiles[$pic];
-            $command = "./domColors " . $file . " " . $comparedFile;
+            $command = "./pyramic " . $file . " " . $comparedFile . " " . $_POST['ratio'];
             exec($command, $output);
             $val = $output[0];
-            if ($val >= 0.1) {
-                $r = new Res($allFiles[$pic], $val);
+            if ($val == 1) {
+                $r = new Res($allFiles[$pic], 1);
                 array_push($results, $r);
             }
             unset($output);

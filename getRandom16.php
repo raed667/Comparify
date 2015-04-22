@@ -1,5 +1,6 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+
+header('Content-Type: application/json');
 $allFiles = scandir("./dataset");
 unset($allFiles[0]);
 unset($allFiles[1]);
@@ -12,4 +13,4 @@ foreach ($selectedFiles as $value) {
     $myfiles[$i] = $allFiles[$value];
     $i++;
 }
-echo json_encode($myfiles);
+echo ("{\"images\" : " . json_encode($myfiles) . "}");
