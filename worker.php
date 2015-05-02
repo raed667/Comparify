@@ -1,6 +1,6 @@
 <?php
 
-//require './Res.php';
+require './Res.php';
 
 //$_POST['id'] = "107702.png";
 

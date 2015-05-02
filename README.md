@@ -1,12 +1,6 @@
-#Comparify
-
-
-###Image Comparator | OpenCV
+#Image Comparator | OpenCV
 
 A simple/dumb C++ based image comparator.
-
-![ScreenShot](http://www.images.tn/upload/original/1430586206.png "ScreenShot")
-
 
 The project is mainly four parts
 
@@ -16,10 +10,8 @@ The project is mainly four parts
   - Magic ! 
 
 PS: 
-* Note that in order for *THIS* code to work you will need a directory `dataset` that contains the images to be compared.
-* The scripts are fare form optimization. For a gallery of 805 images, the average run time I achieved on my laptop is around 7seconds.
-
-
+* Note that in order for *THIS* code to work you'll need a dirctory `dataset` that contains the images to be compared.
+* The scripts are fare form optimisation. For a gallery of 805 images, the average run time I acheaved on my laptop is aroudn 7seconds.
 ### Version
 1.0.2
 
