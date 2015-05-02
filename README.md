@@ -2,6 +2,9 @@
 
 A simple/dumb C++ based image comparator.
 
+![alt text](http://www.images.tn/upload/original/1430586206.png "ScreenShot")
+
+
 The project is mainly four parts
 
   - C++ code: gets 2 image paths as input return similarity
