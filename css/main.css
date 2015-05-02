@@ -152,3 +152,16 @@ input[type=range]:focus::-ms-fill-upper {
     background: #98c353;
 }
 
+.loader{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    float: left;
+}
+
+#no-image, #no-method{
+    height: 26px;
+    font-size: large;
+    font-weight: bolder;
+}
