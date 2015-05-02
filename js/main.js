@@ -17,13 +17,13 @@ function check() {
     var y = document.getElementById("myCheck2").checked;
     var z = document.getElementById("myCheck3").checked;
     var range = document.getElementById("slide").value;
-    alert("Checkbox1 : " + x + "\n" + "Checkbox2 : " + y + "\n" + "Checkbox3 : " + z + "\n" + "Range :" + range);
+    //  alert("Checkbox1 : " + x + "\n" + "Checkbox2 : " + y + "\n" + "Checkbox3 : " + z + "\n" + "Range :" + range);
     $('.img-results').html('');
     /// HISTOGRAMME
     if (x)
     {
         alert($('img[id="img-chosen"]').attr('alt'));
-        $.post("http://localhost/cmp/worker.php",
+        $.post("worker.php",
                 {
                     id: "" + $('img[id="img-chosen"]').attr('alt')
                 },
@@ -50,7 +50,7 @@ function check() {
     {
         var val = range / 100;
         alert($('img[id="img-chosen"]').attr('alt'));
-        $.post("http://localhost/cmp/worker2.php",
+        $.post("worker2.php",
                 {
                     id: "" + $('img[id="img-chosen"]').attr('alt'),
                     ratio: val
