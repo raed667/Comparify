@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-        <script src="js/pace.min.js"></script>
     </head>
     <body>
 
@@ -82,6 +81,22 @@
                 <div id="Hist" class="col-lg-12 img-results"></div>
                 <h2>Pattern <span id="ptime"></span></h2>
                 <div id="Form" class="col-lg-12 img-results"></div>
+                <div style="display: none;" id="Stat" class="col-lg-12">
+                    <h2>Stats</h2>
+                    <div id="no-stat">You have to select both methods in order to access statistics.</div>
+                    <button type="button" id="btn-stat-Pie">Get Stats</button>
+                    <div id="stat-container" class="row">
+                        <div id="PIE" class="col-lg-6">
+                            <canvas id="pie-chart-area" width="500" height="500"/>
+                        </div>
+                        <div id="BAR" class="col-lg-6">
+                            <canvas id="bar-chart-area" width="300" height="300"/>
+                        </div>
+                        <div id="intersect" class="col-lg-12">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div> <!-- /container -->        
 
@@ -89,7 +104,7 @@
         <script>window.jQuery || document.write('<script src="./js/vendor/jquery.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
-
+        <script src="js/libs/Chart.min.js"></script>
         <script src="js/main.js"></script>
 
     </body>

@@ -1,3 +1,6 @@
+var Xdone = false;
+var Ydone = false;
+
 function showValue(newValue)
 {
     document.getElementById("range").innerHTML = newValue + "%";
@@ -37,8 +40,11 @@ function check() {
     } else {
         $("#no-method").show(500);
     }
-    var Xdone = false;
-    var Ydone = false;
+
+    if (x && y) {
+        $('#Stat').show(1000);
+    }
+
 
     /// HISTOGRAMME
     if (x)
@@ -60,7 +66,7 @@ function check() {
                     disp = "display: none;";
                 }
 
-                $('#Hist').append($('<img>', {style: disp, alt: obj[i].ratio, id: "found_" + obj[i].pic, class: "img-result", src: 'http://localhost/cmp/dataset/' + obj[i].pic}));
+                $('#Hist').append($('<img>', {style: disp, alt: obj[i].ratio, id: "found_" + obj[i].pic, class: "img-result img-hist", src: 'http://localhost/cmp/dataset/' + obj[i].pic}));
             }
 
         }).done(function () {
@@ -103,7 +109,7 @@ function check() {
                     disp = "display: none;";
                 }
 
-                $('#Form').append($('<img>', {style: disp, alt: obj[i].ratio, id: "found_" + obj[i].pic, class: "img-result", src: 'http://localhost/cmp/dataset/' + obj[i].pic}));
+                $('#Form').append($('<img>', {style: disp, alt: obj[i].ratio, id: "found_" + obj[i].pic, class: "img-result img-p", src: 'http://localhost/cmp/dataset/' + obj[i].pic}));
             }
 
         }).done(function () {
@@ -132,7 +138,7 @@ $(document).ready(function () {
     $('#ref').click(function () {
         $("#no-image").hide(500);
         $("#no-method").hide(500);
-
+        $('#Stat').hide(1000);
         $('#myCheck1').prop('checked', false);
         $('#myCheck2').prop('checked', false);
         $('#myCheck3').prop('checked', false);
@@ -163,6 +169,72 @@ $(document).ready(function () {
 
     $("#no-image").hide();
     $("#no-method").hide(500);
+
+    $("#btn-stat-Pie").click(function () {
+
+        if (Xdone && Ydone) {
+            $("#no-stat").hide();
+            $("#stat-container").show(1000);
+
+            var pieData = [
+                {
+                    value: $('.img-hist:visible').length,
+                    color: "#F7464A",
+                    highlight: "#FF5A5E",
+                    label: "Hitogramme"
+                },
+                {
+                    value: $('.img-p:visible').length,
+                    color: "#46BFBD",
+                    highlight: "#5AD3D1",
+                    label: "Motifs"
+                }
+            ];
+            var ctx = document.getElementById("pie-chart-area").getContext("2d");
+            window.myPie = new Chart(ctx).Pie(pieData);
+
+            ///
+            var mixedArray = [];
+            $('.img-p:visible').each(function (i, obj) {
+                var src1 = $(this).attr("src");
+                $('.img-hist:visible').each(function (i2, obj2) {
+                    var src2 = $(this).attr("src");
+                    if (src1 == src2) {
+                        mixedArray.push(src1);
+                    }
+
+                });
+            });
+            // alert(mixedArray.length);
+            setTimeout(500);
+            var barChartData = {
+                labels: ["Histogramme", "Motif", "Intersection"],
+                datasets: [
+                    {
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,0.8)",
+                        highlightFill: "rgba(151,187,205,0.75)",
+                        highlightStroke: "rgba(151,187,205,1)",
+                        data: [$('.img-hist:visible').length, $('.img-p:visible').length, mixedArray.length]
+                    }
+                ]
+
+            };
+            var ctxB = document.getElementById("bar-chart-area").getContext("2d");
+            window.myBar = new Chart(ctxB).Bar(barChartData, {
+                responsive: true
+            });
+            $('#intersect').html('');
+            for (var i = 0, max = mixedArray.length; i < max; i++) {
+                $('#intersect').append($('<img>', {class: "img-result img-intersect", src: mixedArray[i]}));
+            }
+
+        } else {
+            $("#no-stat").show(1000);
+            return;
+        }
+
+    });
 
 
 });
