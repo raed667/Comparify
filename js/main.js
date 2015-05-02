@@ -22,6 +22,7 @@ function check() {
     /// HISTOGRAMME
     if (x)
     {
+        var htime1 = Date.now();
         alert($('img[id="img-chosen"]').attr('alt'));
         $.post("worker.php",
                 {
@@ -41,6 +42,11 @@ function check() {
                 $('#Hist').append($('<img>', {style: disp, alt: obj[i].ratio, id: "found_" + obj[i].pic, class: "img-result", src: 'http://localhost/cmp/dataset/' + obj[i].pic}));
             }
 
+        }).done(function () {
+            var totalHTime = Date.now() - htime1;
+            $("#htime").html("(" + (totalHTime / 1000) + "s)");
+            //  alert();
+            // Here I want to get the how long it took to load some.php and use it further
         });
     }
 
@@ -48,6 +54,8 @@ function check() {
 
     if (y)
     {
+        var ptime1 = Date.now();
+
         var val = range / 100;
         alert($('img[id="img-chosen"]').attr('alt'));
         $.post("worker2.php",
@@ -69,6 +77,11 @@ function check() {
                 $('#Form').append($('<img>', {style: disp, alt: obj[i].ratio, id: "found_" + obj[i].pic, class: "img-result", src: 'http://localhost/cmp/dataset/' + obj[i].pic}));
             }
 
+        }).done(function () {
+            var totalPTime = Date.now() - ptime1;
+            $("#ptime").html("(" + (totalPTime / 1000) + "s)");
+            //  alert();
+            // Here I want to get the how long it took to load some.php and use it further
         });
     }
 
@@ -96,6 +109,16 @@ $(document).ready(function () {
         $("#img-chosen").attr("src", source);
         $("#img-chosen").attr("alt", event.target.id);
     });
+
+    $(document).ajaxStart(function () {
+        alert("ajax started");
+        // $("#loader").show();
+        $("#data").css("background-image", "url(/loader.gif)");
+    }).ajaxStop(function () {
+        $("#loader").hide();
+    });
+
+
 });
 
 
