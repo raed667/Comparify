@@ -49,6 +49,9 @@ function check() {
     /// HISTOGRAMME
     if (x)
     {
+        $("#Hist").show(1000);
+
+        $('#Hist').append("<h2>Histogramme <span id='htime'></span></h2>")
         var htime1 = Date.now();
         //    alert($('img[id="img-chosen"]').attr('alt'));
         $.post("worker.php",
@@ -89,6 +92,8 @@ function check() {
 
     if (y)
     {
+        $('#Form').show();
+        $('#Form').append("<h2>Pattern <span id='ptime'></span></h2>");
         var ptime1 = Date.now();
 
         var val = range / 100;
@@ -136,6 +141,8 @@ function check() {
 
 $(document).ready(function () {
     $('#ref').click(function () {
+        $("#Hist").hide(500);
+        $("#Form").hide(500);
         $("#no-image").hide(500);
         $("#no-method").hide(500);
         $('#Stat').hide(1000);
@@ -168,7 +175,11 @@ $(document).ready(function () {
     });
 
     $("#no-image").hide();
-    $("#no-method").hide(500);
+    $("#no-method").hide();
+    $("#Hist").hide();
+    $("#Form").hide();
+
+
 
     $("#btn-stat-Pie").click(function () {
 
